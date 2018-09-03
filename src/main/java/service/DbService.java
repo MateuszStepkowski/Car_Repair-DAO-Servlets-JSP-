@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class DbService {
 
-    private static String dbName = "carRepairCRM";
+    private static String dbName = "car_repair_CRM";
     private static String dbUser = "root";
     private static String dbPass = "coderslab";
 
