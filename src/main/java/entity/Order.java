@@ -1,14 +1,15 @@
 package entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Order {
 
     private Integer id;
-    private Timestamp receiveDate;
-    private Timestamp plannedStartDate;
-    private Timestamp startDate;
-    private Timestamp endDate;
+    private Date receiveDate;
+    private Date plannedStartDate;
+    private Date startDate;
+    private Date endDate;
     private Employee employee;
     private String problemDescription;
     private String repairDescription;
@@ -27,35 +28,35 @@ public class Order {
         this.id = id;
     }
 
-    public Timestamp getReceiveDate() {
+    public Date getReceiveDate() {
         return receiveDate;
     }
 
-    public void setReceiveDate(Timestamp receiveDate) {
+    public void setReceiveDate(Date receiveDate) {
         this.receiveDate = receiveDate;
     }
 
-    public Timestamp getPlannedStartDate() {
+    public Date getPlannedStartDate() {
         return plannedStartDate;
     }
 
-    public void setPlannedStartDate(Timestamp plannedStartDate) {
+    public void setPlannedStartDate(Date plannedStartDate) {
         this.plannedStartDate = plannedStartDate;
     }
 
-    public Timestamp getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Timestamp getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Timestamp endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -65,7 +66,6 @@ public class Order {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
-        setServiceCostPerHour();
     }
 
     public String getProblemDescription() {

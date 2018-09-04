@@ -1,5 +1,6 @@
 package entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Customer {
@@ -8,7 +9,7 @@ public class Customer {
     private String forename;
     private String surname;
     private String phoneNumber;
-    private Timestamp birthDate;
+    private Date birthDate;
 
     public Customer() {
     }
@@ -45,12 +46,11 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-
-    public Timestamp getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Timestamp birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 }

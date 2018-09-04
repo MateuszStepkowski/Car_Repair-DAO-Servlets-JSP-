@@ -3,6 +3,7 @@ package entity.dao;
 import entity.Customer;
 import service.DbService;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class CustomerDao {
         customer.setForename(row.get("forename"));
         customer.setSurname(row.get("surname"));
         customer.setPhoneNumber(row.get("phone_number"));
-        customer.setBirthDate(Timestamp.valueOf(row.get("birth_date")));
+        customer.setBirthDate(Date.valueOf(row.get("birth_date")));
         return customer;
     }
 

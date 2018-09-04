@@ -1,5 +1,6 @@
 package entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Vehicle {
@@ -9,7 +10,7 @@ public class Vehicle {
     private String brand;
     private int productionYear;
     private String registrationNumber;
-    private Timestamp nextInspection;
+    private Date nextInspection;
     private Customer customer;
 
     public Vehicle() {
@@ -55,11 +56,11 @@ public class Vehicle {
         this.registrationNumber = registrationNumber;
     }
 
-    public Timestamp getNextInspection() {
+    public Date getNextInspection() {
         return nextInspection;
     }
 
-    public void setNextInspection(Timestamp nextInspection) {
+    public void setNextInspection(Date nextInspection) {
         this.nextInspection = nextInspection;
     }
 

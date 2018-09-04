@@ -4,6 +4,7 @@ import entity.Order;
 import entity.Status;
 import service.DbService;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +42,10 @@ public class OrderDao {
     }
 
     private static void update(Order order) throws Exception {
-        String query = "UPDATE order SET " +
+        String query = "UPDATE orders SET " +
                 "receive_date = ?, planned_start_date = ?, start_date = ?, end_date = ?, " +
                 "employee_id = ?, problem_description = ?, repair_description = ?, status = ?, " +
-                "vehicle_id = ?, customer_costs = ?, parts_cost = ?, service_cost_per_hour = ?, " +
+                "vehicle_id = ?, client_costs = ?, parts_cost = ?, service_cost_per_hour = ?, " +
                 "hours_amount = ? " +
                 "WHERE id = ?";
         List<String> params = new ArrayList<>();
@@ -52,7 +53,7 @@ public class OrderDao {
         params.add((order.getReceiveDate()).toString());
         params.add(order.getPlannedStartDate().toString());
         params.add(order.getStartDate().toString());
-        params.add(order.getEndDate().toString());
+        params.add(order.getEndDate() == null ? null : order.getEndDate().toString());
         params.add(String.valueOf(order.getEmployee().getId()));
         params.add(order.getProblemDescription());
         params.add(order.getRepairDescription());
@@ -69,7 +70,7 @@ public class OrderDao {
 
 
     public static void delete(int id) throws Exception {
-        String query = "DELETE FROM order WHERE id = ?";
+        String query = "DELETE FROM orders WHERE id = ?";
         List<String> params = new ArrayList<>();
 
         params.add(String.valueOf(id));
@@ -77,13 +78,13 @@ public class OrderDao {
     }
 
     public static List<Order> findAll() throws Exception {
-        String query = "SELECT * FROM order";
+        String query = "SELECT * FROM orders";
 
         return resultList(query, null);
     }
 
     public static Order loadById(int id) throws Exception {
-        String query = "SELECT * FROM order WHERE id = ?";
+        String query = "SELECT * FROM orders WHERE id = ?";
         List<String> params = new ArrayList<>();
         params.add(String.valueOf(id));
 
@@ -99,16 +100,16 @@ public class OrderDao {
         Order order = new Order();
 
         order.setId(Integer.parseInt(row.get("id")));
-        order.setReceiveDate(Timestamp.valueOf(row.get("receive_date")));
-        order.setPlannedStartDate(Timestamp.valueOf(row.get("planned_start_date")));
-        order.setStartDate(Timestamp.valueOf(row.get("start_date")));
-        order.setEndDate(row.get("end_date") == null ? null : Timestamp.valueOf(row.get("end_date")));
+        order.setReceiveDate(Date.valueOf(row.get("receive_date")));
+        order.setPlannedStartDate(Date.valueOf(row.get("planned_start_date")));
+        order.setStartDate(Date.valueOf(row.get("start_date")));
+        order.setEndDate(row.get("end_date") == null ? null : Date.valueOf(row.get("end_date")));
         order.setEmployee(EmployeeDao.loadById(Integer.parseInt(row.get("employee_id"))));
         order.setProblemDescription(row.get("problem_description"));
         order.setRepairDescription(row.get("repair_description"));
         order.setStatus(Status.valueOf(row.get("status")));
         order.setVehicle(VehicleDao.loadById(Integer.parseInt(row.get("vehicle_id"))));
-        order.setClientCosts(Double.parseDouble(row.get("client_costs")));
+        order.setClientCosts(Double.parseDouble(row.get("client_costs") ));
         order.setPartsCost(Double.parseDouble(row.get("parts_cost")));
         order.setServiceCostPerHour();
         order.setHoursAmount(Double.parseDouble(row.get("hours_amount")));
@@ -117,7 +118,7 @@ public class OrderDao {
     }
 
     public static List<Order> loadByVehicleId(int id) throws Exception {
-        String query = "SELECT * FROM order WHERE vehicle_id = ?";
+        String query = "SELECT * FROM orders WHERE vehicle_id = ?";
         List<String> params = new ArrayList<>();
         params.add(String.valueOf(id));
 
@@ -125,7 +126,7 @@ public class OrderDao {
     }
 
     public static List<Order> loadByEmployeeId(int id) throws Exception {
-        String query = "SELECT * FROM order WHERE employee_id = ?";
+        String query = "SELECT * FROM orders WHERE employee_id = ?";
         List<String> params = new ArrayList<>();
         params.add(String.valueOf(id));
 
@@ -133,7 +134,7 @@ public class OrderDao {
     }
 
     public static List<Order> loadByStartDateBetween(Timestamp startDate, Timestamp endDate) throws Exception {
-        String query = "SELECT * FROM order WHERE (start_date BETWEEN ? AND ?);";
+        String query = "SELECT * FROM orders WHERE (start_date BETWEEN ? AND ?);";
         List<String> params = new ArrayList<>();
         params.add(startDate.toString());
         params.add(endDate.toString());
@@ -149,14 +150,14 @@ public class OrderDao {
     }
 
     public static List<Order> loadInRepairByEmployeeId(int id) throws Exception {
-        String query = "SELECT * FROM order WHERE employee_id = ? AND status = 'IN_REPAIR'";
+        String query = "SELECT * FROM orders WHERE employee_id = ? AND status = 'IN_REPAIR'";
         List<String> params = new ArrayList<>();
         params.add(String.valueOf(id));
 
         return resultList(query, params);
     }
 
-    
+
 
     private static List<Order> resultList(String query, List<String> params) throws Exception {
         List<Map<String, String>> data = DbService.getData(query, params);
@@ -168,4 +169,11 @@ public class OrderDao {
 
         return results;
     }
+
+    public static List<Order> loadNotReady() throws Exception {
+        String query = "SELECT * FROM orders WHERE status <> 'READY' ORDER BY receive_date ASC";
+
+        return resultList(query, null);
+    }
+
 }

@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS vehicle
 );
 
 
-CREATE TABLE IF NOT EXISTS order (
+CREATE TABLE IF NOT EXISTS orders (
   id                     INT AUTO_INCREMENT,
   receive_date           DATE,
   planned_start_date     DATE,

@@ -3,6 +3,7 @@ package entity.dao;
 import entity.Vehicle;
 import service.DbService;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,7 @@ public class VehicleDao {
         vehicle.setModel(row.get("model"));
         vehicle.setProductionYear(Integer.parseInt(row.get("production_year")));
         vehicle.setRegistrationNumber(row.get("registrationNumber"));
-        vehicle.setNextInspection(Timestamp.valueOf(row.get("next_inspection")));
+        vehicle.setNextInspection(Date.valueOf(row.get("next_inspection")));
         vehicle.setCustomer(CustomerDao.loadById(Integer.parseInt(row.get("customer_id"))));
         return vehicle;
     }
