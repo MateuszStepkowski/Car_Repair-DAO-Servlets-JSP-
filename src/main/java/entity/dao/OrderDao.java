@@ -27,7 +27,7 @@ public class OrderDao {
 
         params.add((order.getReceiveDate()).toString());
         params.add(order.getPlannedStartDate().toString());
-        params.add(order.getStartDate().toString());
+        params.add(order.getStartDate() == null ? null : order.getStartDate().toString());
         params.add(String.valueOf(order.getEmployee().getId()));
         params.add(order.getProblemDescription());
         params.add(order.getRepairDescription());
@@ -118,7 +118,7 @@ public class OrderDao {
     }
 
     public static List<Order> loadByVehicleId(int id) throws Exception {
-        String query = "SELECT * FROM orders WHERE vehicle_id = ?";
+        String query = "SELECT * FROM orders WHERE vehicle_id = ? ORDER BY receive_date DESC";
         List<String> params = new ArrayList<>();
         params.add(String.valueOf(id));
 
@@ -182,6 +182,18 @@ public class OrderDao {
         String query = "SELECT * FROM orders WHERE status <> 'READY' ORDER BY receive_date ASC";
 
         return resultList(query, null);
+    }
+
+    public static List<Order> loadByCustomerId(int id) throws Exception {
+        String query = "SELECT orders.* FROM orders " +
+                "inner JOIN vehicle ON orders.vehicle_id = vehicle.id " +
+                "inner JOIN customer ON vehicle.customer_id = customer.id " +
+                "WHERE vehicle.customer_id = ? " +
+                "ORDER BY orders.receive_date DESC";
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(id));
+
+        return resultList(query, params);
     }
 
 }

@@ -13,8 +13,13 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="/order/allOrders">show All Orders</a>
-            <a class="dropdown-item" href="/home">Main Page</a>
+            <h1>Temporary HEADER</h1>
+            <a class="dropdown-item" href="/home"> Main Page </a>
+            <a class="dropdown-item" href="/order/allOrders"> show All Orders </a>
+            <a class="dropdown-item" href="/customer/allCustomers"> show All Customers </a>
+            <a class="dropdown-item" href="/employee/allEmployees"> show All Employees </a>
+            <h1>Temporary HEADER</h1>
+
             <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>

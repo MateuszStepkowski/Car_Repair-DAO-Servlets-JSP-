@@ -22,14 +22,13 @@ public class VehicleDao {
         }
     }
 
-    public static void delete(Vehicle vehicle) throws Exception {
+    public static void delete(int id) throws Exception {
         String query = "DELETE FROM vehicle WHERE id = ?";
 
         List<String> params = new ArrayList<>();
-        params.add(String.valueOf(vehicle.getId()));
+        params.add(String.valueOf(id));
 
         DbService.executeQuery(query, params);
-        vehicle.setId(0);
     }
 
     private static void addNew(Vehicle vehicle) throws Exception {
@@ -98,7 +97,7 @@ public class VehicleDao {
         vehicle.setBrand(row.get("brand"));
         vehicle.setModel(row.get("model"));
         vehicle.setProductionYear(Integer.parseInt(row.get("production_year")));
-        vehicle.setRegistrationNumber(row.get("registrationNumber"));
+        vehicle.setRegistrationNumber(row.get("registration_number"));
         vehicle.setNextInspection(Date.valueOf(row.get("next_inspection")));
         vehicle.setCustomer(CustomerDao.loadById(Integer.parseInt(row.get("customer_id"))));
         return vehicle;

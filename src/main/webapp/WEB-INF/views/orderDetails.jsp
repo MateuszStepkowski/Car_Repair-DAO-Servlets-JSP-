@@ -59,14 +59,14 @@
         <td>${order.hoursAmount}</td>
     </tr>
     <tr>
-        <td><a href="/order/edit?orderID=${order.id}" class="btn btn-primary">Edit</a>
+        <td>
+            <a href="/order/edit?orderID=${order.id}" class="btn btn-primary">Edit</a>
         </td>
         <td>
             <a href="/order/delete?orderID=${order.id}" class="btn btn-primary">Delete</a>
         </td>
     </tr>
 </table>
-
 
 
 <%@include file="default/footer.jsp" %>

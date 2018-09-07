@@ -21,14 +21,13 @@ public class CustomerDao {
     }
 
 
-    public static void delete(Customer customer) throws Exception{
+    public static void delete(int id) throws Exception{
         String query = "DELETE FROM customer WHERE id = ?";
 
         List<String> params = new ArrayList<>();
-        params.add(String.valueOf(customer.getId()));
+        params.add(String.valueOf(id));
 
         DbService.executeQuery(query, params);
-        customer.setId(0);
     }
 
 

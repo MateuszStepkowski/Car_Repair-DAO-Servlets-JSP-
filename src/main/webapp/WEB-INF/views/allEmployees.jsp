@@ -5,38 +5,12 @@
 
 <h4>Add new employee:</h4>
 
-<form action="/employee/add" method="POST">
+<jsp:include page="forms/employeeAddForm.jsp"/>
 
-    <label>
-        forename:
-        <input type="text" name="forename">
-    </label></br>
-    <label>
-        surname:
-        <input type="text" name="surname">
-    </label></br>
-    <label>
-        address:
-        <input type="text" name="address">
-    </label></br>
-    <label>
-        phone number:
-        <input type="text" name="phoneNumber">
-    </label></br>
-    <label>
-        note:
-        <textarea name="note" cols="12" rows="4"></textarea>
-    </label></br>
-    <label>
-        hour salary:
-        <input type="text" name="hourSalary">
-    </label></br>
-    <input type="submit" value="Add new Employee">
-
-</form>
+<h3>all Employees: </h3>
 
 
-<table id="table_template">
+<table class="table">
     <tr>
         <th>ID</th>
         <th>forename</th>
