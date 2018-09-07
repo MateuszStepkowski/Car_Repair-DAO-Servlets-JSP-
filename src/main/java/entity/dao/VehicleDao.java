@@ -67,7 +67,7 @@ public class VehicleDao {
 
 
 
-    public static Vehicle loadById(Integer id) throws Exception {
+    public static Vehicle loadById(int id) throws Exception {
         String query = "SELECT * FROM vehicle WHERE id = ? ";
 
         List<String> params = new ArrayList<>();

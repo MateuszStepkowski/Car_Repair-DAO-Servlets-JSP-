@@ -22,7 +22,7 @@ public class OrderAddNewController extends HttpServlet {
             Order order = new Order();
             order.setReceiveDate(Date.valueOf(request.getParameter("receiveDate")));
             order.setPlannedStartDate(Date.valueOf(request.getParameter("plannedStartDate")));
-            order.setStartDate(Date.valueOf(request.getParameter("startDate")));
+            order.setStartDate(request.getParameter("startDate").length() < 1 ? null : Date.valueOf(request.getParameter("startDate")));
             order.setEndDate(request.getParameter("endDate").length() < 1 ? null : Date.valueOf(request.getParameter("endDate")));
             order.setEmployee(EmployeeDao.loadById(Integer.parseInt(request.getParameter("employee"))));
             order.setProblemDescription(request.getParameter("problemDescription"));

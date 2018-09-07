@@ -27,14 +27,14 @@ public class OrderEditController extends HttpServlet {
             order.setPlannedStartDate(Date.valueOf(request.getParameter("plannedStartDate")));
             order.setStartDate(Date.valueOf(request.getParameter("startDate")));
             order.setEndDate(request.getParameter("endDate").length() < 1 ? null : Date.valueOf(request.getParameter("endDate")));
-            order.setEmployee(EmployeeDao.loadById(Integer.parseInt(request.getParameter("employee"))));
+            order.setEmployee(request.getParameter("employee").equals("\"==\"") ? null : EmployeeDao.loadById(Integer.parseInt(request.getParameter("employee"))));
             order.setProblemDescription(request.getParameter("problemDescription"));
             order.setRepairDescription(request.getParameter("repairDescription"));
             order.setStatus(Status.valueOf(request.getParameter("status")));
             order.setVehicle(VehicleDao.loadById(Integer.parseInt(request.getParameter("vehicle"))));
             order.setClientCosts(Double.parseDouble(request.getParameter("clientCosts")));
             order.setPartsCost(Double.parseDouble(request.getParameter("partsCost")));
-            order.setServiceCostPerHour();
+            if (order.getEmployee() != null) order.setServiceCostPerHour();
             order.setHoursAmount(Double.parseDouble(request.getParameter("hoursAmount")));
 
             OrderDao.save(order);

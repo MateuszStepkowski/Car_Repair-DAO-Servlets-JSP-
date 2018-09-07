@@ -54,7 +54,7 @@ public class OrderDao {
         params.add(order.getPlannedStartDate().toString());
         params.add(order.getStartDate().toString());
         params.add(order.getEndDate() == null ? null : order.getEndDate().toString());
-        params.add(String.valueOf(order.getEmployee().getId()));
+        params.add(order.getEmployee() == null ? null : String.valueOf(order.getEmployee().getId()));
         params.add(order.getProblemDescription());
         params.add(order.getRepairDescription());
         params.add(order.getStatus().toString());
@@ -102,16 +102,16 @@ public class OrderDao {
         order.setId(Integer.parseInt(row.get("id")));
         order.setReceiveDate(Date.valueOf(row.get("receive_date")));
         order.setPlannedStartDate(Date.valueOf(row.get("planned_start_date")));
-        order.setStartDate(Date.valueOf(row.get("start_date")));
+        order.setStartDate(row.get("start_date") == null ? null : Date.valueOf(row.get("start_date")));
         order.setEndDate(row.get("end_date") == null ? null : Date.valueOf(row.get("end_date")));
-        order.setEmployee(EmployeeDao.loadById(Integer.parseInt(row.get("employee_id"))));
+        order.setEmployee(row.get("employee_id") == null ? null : EmployeeDao.loadById(Integer.parseInt(row.get("employee_id"))));
         order.setProblemDescription(row.get("problem_description"));
         order.setRepairDescription(row.get("repair_description"));
         order.setStatus(Status.valueOf(row.get("status")));
         order.setVehicle(VehicleDao.loadById(Integer.parseInt(row.get("vehicle_id"))));
         order.setClientCosts(Double.parseDouble(row.get("client_costs") ));
         order.setPartsCost(Double.parseDouble(row.get("parts_cost")));
-        order.setServiceCostPerHour();
+        if (order.getEmployee() != null)order.setServiceCostPerHour();
         order.setHoursAmount(Double.parseDouble(row.get("hours_amount")));
 
         return order;
@@ -151,6 +151,14 @@ public class OrderDao {
 
     public static List<Order> loadInRepairByEmployeeId(int id) throws Exception {
         String query = "SELECT * FROM orders WHERE employee_id = ? AND status = 'IN_REPAIR'";
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(id));
+
+        return resultList(query, params);
+    }
+
+    public static List<Order> loadNotInRepairByEmployeeId(int id) throws Exception {
+        String query = "SELECT * FROM orders WHERE employee_id = ? AND status <> 'IN_REPAIR'";
         List<String> params = new ArrayList<>();
         params.add(String.valueOf(id));
 

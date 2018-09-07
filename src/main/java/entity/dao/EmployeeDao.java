@@ -19,14 +19,13 @@ public class EmployeeDao {
         }
     }
 
-    public static void delete(Employee employee) throws Exception {
+    public static void delete(int id) throws Exception {
         String query = "DELETE FROM employee WHERE id = ? ";
 
         List<String> params = new ArrayList<>();
-        params.add(String.valueOf(employee.getId()));
+        params.add(String.valueOf(id));
 
         DbService.executeQuery(query, params);
-        employee.setId(0);
     }
 
 
