@@ -133,21 +133,6 @@ public class OrderDao {
         return resultList(query, params);
     }
 
-    public static List<Order> loadByStartDateBetween(Timestamp startDate, Timestamp endDate) throws Exception {
-        String query = "SELECT * FROM orders WHERE (start_date BETWEEN ? AND ?);";
-        List<String> params = new ArrayList<>();
-        params.add(startDate.toString());
-        params.add(endDate.toString());
-
-        List<Map<String, String>> data = DbService.getData(query, params);
-
-        List<Order> results = new ArrayList<>();
-        for (Map<String, String> row : data) {
-            results.add(createFromDB(row));
-        }
-
-        return results;
-    }
 
     public static List<Order> loadInRepairByEmployeeId(int id) throws Exception {
         String query = "SELECT * FROM orders WHERE employee_id = ? AND status = 'IN_REPAIR'";
@@ -192,6 +177,16 @@ public class OrderDao {
                 "ORDER BY orders.receive_date DESC";
         List<String> params = new ArrayList<>();
         params.add(String.valueOf(id));
+
+        return resultList(query, params);
+    }
+
+    public static List<Order> loadByStartDateFromTO(Date fromDate, Date toDate) throws Exception {
+        String query = "SELECT * FROM orders WHERE start_date BETWEEN ? AND ? ORDER BY employee_id ASC";
+
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(fromDate));
+        params.add(String.valueOf(toDate));
 
         return resultList(query, params);
     }

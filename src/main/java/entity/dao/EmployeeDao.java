@@ -78,7 +78,7 @@ public class EmployeeDao {
     }
 
     public static List<Employee> loadAll() throws Exception {
-        String query = "SELECT * FROM employee";
+        String query = "SELECT * FROM employee ORDER BY id ASC";
 
         List<Employee> employees = new ArrayList<>();
         List<Map<String, String>> data = DbService.getData(query, null);

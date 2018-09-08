@@ -18,6 +18,7 @@
             <a class="dropdown-item" href="/order/allOrders"> show All Orders </a>
             <a class="dropdown-item" href="/customer/allCustomers"> show All Customers </a>
             <a class="dropdown-item" href="/employee/allEmployees"> show All Employees </a>
+            <a class="dropdown-item" href="/report"> Reports </a>
             <h1>Temporary HEADER</h1>
 
             <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
